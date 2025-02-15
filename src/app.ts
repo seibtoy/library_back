@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import routes from "./routes/routes";
 
 dotenv.config();
 
@@ -10,6 +11,8 @@ const MONGO_URI: string =
   process.env.MONGO_URI || "mongodb://localhost:27017/myDatabase";
 
 app.use(express.json());
+
+app.use("/", routes);
 
 mongoose
   .connect(MONGO_URI)
