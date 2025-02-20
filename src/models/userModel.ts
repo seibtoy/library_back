@@ -1,4 +1,10 @@
 import mongoose, { Schema, Document } from "mongoose";
+import Book from "./bookModel";
+
+interface CartItem {
+  bookId: mongoose.Schema.Types.ObjectId;
+  weeks: number;
+}
 
 interface User extends Document {
   name: string;
@@ -7,6 +13,7 @@ interface User extends Document {
   phone: string;
   address: string;
   password: string;
+  cartItems: CartItem[];
 }
 
 const userSchema = new Schema<User>({
@@ -16,6 +23,16 @@ const userSchema = new Schema<User>({
   phone: { type: String, required: true, unique: true },
   address: { type: String, required: true },
   password: { type: String, required: true },
+  cartItems: [
+    {
+      bookId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Book",
+        required: true,
+      },
+      weeks: { type: Number, default: 1 },
+    },
+  ],
 });
 
 const User = mongoose.model<User>("User", userSchema, "user");
