@@ -23,7 +23,7 @@ const bookSchema = new Schema<Book>(
     genre: { type: String, required: true },
     depositPrice: { type: Number, required: true },
     rentalPrice: { type: Number, required: true },
-    currency: { type: String, required: true },
+    currency: { type: String, required: true, default: "USD" },
     availability: {
       type: String,
       enum: ["available", "reserved"],
@@ -39,5 +39,5 @@ const bookSchema = new Schema<Book>(
   { collection: "books" }
 );
 
-const Book = mongoose.model<Book>("Books", bookSchema);
+const Book = mongoose.model<Book>("Book", bookSchema, "books");
 export default Book;

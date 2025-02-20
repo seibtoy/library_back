@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel";
 
-const JWT_SECRET = process.env.JWT_SECRET || "yourSecretKey";
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_token";
 
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
   const { phone, password } = req.body;
@@ -21,7 +21,9 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ userId: user._id }, "your_jwt_token", {
+    expiresIn: "1h",
+  });
 
   res.json({ message: "Login successful", token });
 };
