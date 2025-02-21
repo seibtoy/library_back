@@ -1,6 +1,6 @@
 import express from "express";
-import User from "../models/userModel";
-import Book from "../models/bookModel";
+import User from "../../models/userModel";
+import Book from "../../models/bookModel";
 
 export const addToCart = async (
   req: express.Request,

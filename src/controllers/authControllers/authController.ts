@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import User from "../models/userModel";
+import User from "../../models/userModel";
 
 export const registerUser = async (
   req: express.Request,
