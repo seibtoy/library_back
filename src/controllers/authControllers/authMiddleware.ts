@@ -32,7 +32,6 @@ export const authenticate = (
 
     const payload = decoded as JwtPayload;
     if (typeof payload === "object" && "userId" in payload) {
-      console.log("Decoded token:", decoded);
       req.userId = payload.userId;
       next();
     } else {

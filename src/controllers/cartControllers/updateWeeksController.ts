@@ -1,11 +1,11 @@
 import express from "express";
-import User from "../models/userModel";
+import User from "../../models/userModel";
 
-export const removeFromCart = async (
+export const updateItemWeeks = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { bookId } = req.body;
+  const { bookId, weeks } = req.body;
   const userId = req.userId;
 
   try {
@@ -15,21 +15,20 @@ export const removeFromCart = async (
       return;
     }
 
-    const itemIndex = user.cartItems.findIndex(
+    const cartItem = user.cartItems.find(
       (item) => item.bookId.toString() === bookId
     );
-
-    if (itemIndex === -1) {
+    if (!cartItem) {
       res.status(404).send("Item not found in cart");
       return;
     }
 
-    user.cartItems.splice(itemIndex, 1);
+    cartItem.weeks = weeks;
     await user.save();
 
-    res.status(200).json(user.cartItems);
+    res.status(200).json({ message: "Cart item updated", cartItem });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error removing item from cart");
+    res.status(500).send("Error updating cart item");
   }
 };
