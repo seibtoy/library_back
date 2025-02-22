@@ -9,6 +9,8 @@ import { removeFromCart } from "../controllers/cartControllers/removeCartItemCon
 import { updateItemWeeks } from "../controllers/cartControllers/updateWeeksController";
 import { placeOrder } from "../controllers/borrowedControllers/orderController";
 import { getUserBorrowedBooks } from "../controllers/borrowedControllers/getBorrowedBooks";
+import { updateDiscount } from "../controllers/cartControllers/updateDiscount";
+import { stopRental } from "../controllers/borrowedControllers/stopRental";
 
 const router = express.Router();
 
@@ -29,5 +31,9 @@ router.post("/remove-cart", authenticate, removeFromCart);
 router.post("/place-order", authenticate, placeOrder);
 
 router.get("/get-borrowed-books", authenticate, getUserBorrowedBooks);
+
+router.post("/update-discount", authenticate, updateDiscount);
+
+router.post("/stop-rental", authenticate, stopRental);
 
 export default router;

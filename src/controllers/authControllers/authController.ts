@@ -23,7 +23,11 @@ export const registerUser = async (
     phone,
     address,
     password: hashedPassword,
-    cart: [],
+    cart: {
+      items: [],
+      discount: 0,
+      totalPrice: 0,
+    },
   });
 
   try {

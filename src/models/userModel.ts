@@ -6,6 +6,12 @@ interface CartItem {
   weeks: number;
 }
 
+interface Cart {
+  items: CartItem[];
+  discount: number;
+  totalPrice: number;
+}
+
 interface User extends Document {
   name: string;
   surname: string;
@@ -13,17 +19,11 @@ interface User extends Document {
   phone: string;
   address: string;
   password: string;
-  cartItems: CartItem[];
+  cart: Cart;
 }
 
-const userSchema = new Schema<User>({
-  name: { type: String, required: true },
-  surname: { type: String, required: true },
-  midname: { type: String, required: true },
-  phone: { type: String, required: true, unique: true },
-  address: { type: String, required: true },
-  password: { type: String, required: true },
-  cartItems: [
+const cartSchema = new Schema<Cart>({
+  items: [
     {
       bookId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +33,21 @@ const userSchema = new Schema<User>({
       weeks: { type: Number, default: 1 },
     },
   ],
+  discount: { type: Number, default: 0 },
+  totalPrice: { type: Number, default: 0 },
+});
+
+const userSchema = new Schema<User>({
+  name: { type: String, required: true },
+  surname: { type: String, required: true },
+  midname: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
+  address: { type: String, required: true },
+  password: { type: String, required: true },
+  cart: {
+    type: cartSchema,
+    default: { items: [], discount: 0, totalPrice: 0 },
+  },
 });
 
 const User = mongoose.model<User>("User", userSchema, "user");
