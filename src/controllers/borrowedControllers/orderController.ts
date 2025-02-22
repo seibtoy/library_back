@@ -19,11 +19,16 @@ export const placeOrder = async (
   res: express.Response
 ): Promise<void> => {
   const userId = req.userId;
-  const { totalPrice, weeks } = req.body;
 
   try {
     const user = await User.findById(userId)
-      .populate<{ cartItems: PopulatedCartItem[] }>("cartItems.bookId")
+      .populate<{
+        cart: {
+          items: PopulatedCartItem[];
+          totalPrice: number;
+          discount: number;
+        };
+      }>("cart.items")
       .exec();
 
     if (!user) {
@@ -33,7 +38,7 @@ export const placeOrder = async (
 
     const borrowedBook = new BorrowedBook({
       userId: user._id,
-      books: user.cartItems.map((item) => {
+      books: user.cart.items.map((item) => {
         const rentalDate = new Date();
         const returnDate = new Date(rentalDate);
         returnDate.setDate(rentalDate.getDate() + item.weeks * 7);
@@ -49,12 +54,12 @@ export const placeOrder = async (
           returnDate,
         };
       }),
-      totalPrice,
+      totalPrice: user.cart.totalPrice,
     });
 
     await borrowedBook.save();
 
-    user.cartItems = [];
+    user.cart.items = [];
     await user.save();
 
     res.status(200).json({

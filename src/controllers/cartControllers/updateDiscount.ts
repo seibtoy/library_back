@@ -1,11 +1,11 @@
 import express from "express";
 import User from "../../models/userModel";
 
-export const removeFromCart = async (
+export const updateDiscount = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { bookId } = req.body;
+  const { discount } = req.body;
   const userId = req.userId;
 
   try {
@@ -27,25 +27,22 @@ export const removeFromCart = async (
       return;
     }
 
-    const itemIndex = user.cart.items.findIndex(
-      (item) => item.bookId._id.toString() === bookId
-    );
+    user.cart.discount = discount;
 
-    if (itemIndex === -1) {
-      res.status(404).send("Item not found in cart");
-      return;
-    }
-
-    const removedItemPrice =
-      user.cart.items[itemIndex].weeks *
-        user.cart.items[itemIndex].bookId.rentalPrice +
-      user.cart.items[itemIndex].bookId.depositPrice;
-
-    user.cart.items.splice(itemIndex, 1);
-
-    user.cart.totalPrice -= removedItemPrice;
-
-    if (user.cart.totalPrice < 0) {
+    if (user.cart.items.length > 0) {
+      user.cart.totalPrice = parseFloat(
+        user.cart.items
+          .reduce((total, item) => {
+            return (
+              total +
+              item.weeks * item.bookId.rentalPrice +
+              item.bookId.depositPrice
+            );
+          }, 0)
+          .toFixed(2)
+      );
+      user.cart.totalPrice = user.cart.totalPrice * (1 - discount / 100);
+    } else {
       user.cart.totalPrice = 0;
     }
 
@@ -53,11 +50,13 @@ export const removeFromCart = async (
 
     await user.save();
 
-    res
-      .status(200)
-      .json({ cartItems: user.cart.items, totalPrice: user.cart.totalPrice });
+    res.status(200).json({
+      cartItems: user.cart.items,
+      totalPrice: user.cart.totalPrice,
+      discount: user.cart.discount,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error removing item from cart");
+    res.status(500).send("Error updating discount");
   }
 };
