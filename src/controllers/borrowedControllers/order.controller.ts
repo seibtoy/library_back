@@ -1,6 +1,6 @@
 import express from "express";
-import User from "../../models/userModel";
-import BorrowedBook from "../../models/borrowedBooksModel";
+import User from "../../models/user.model";
+import BorrowedBook from "../../models/borrowedBooks.model";
 import mongoose from "mongoose";
 
 interface PopulatedCartItem {

@@ -1,5 +1,5 @@
 import express from "express";
-import BorrowedBook from "../../models/borrowedBooksModel";
+import BorrowedBook from "../../models/borrowedBooks.model";
 
 export const getUserBorrowedBooks = async (
   req: express.Request,

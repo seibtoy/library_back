@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import Book from "./bookModel";
+import Book from "./book.model";
 
 interface CartItem {
   bookId: mongoose.Schema.Types.ObjectId;

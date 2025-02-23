@@ -34,6 +34,6 @@ router.get("/get-borrowed-books", authenticate, getUserBorrowedBooks);
 
 router.post("/update-discount", authenticate, updateDiscount);
 
-router.post("/stop-rental", authenticate, stopRental);
+router.post("/rental-stop", authenticate, stopRental);
 
 export default router;

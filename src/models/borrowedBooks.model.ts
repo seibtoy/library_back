@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import Book from "./bookModel";
+import Book from "./book.model";
 
 interface BorrowedBook extends Document {
   userId: mongoose.Schema.Types.ObjectId;

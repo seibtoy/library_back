@@ -1,6 +1,6 @@
 import express from "express";
-import User from "../../models/userModel";
-import Book from "../../models/bookModel"; // Импортируем модель Book
+import User from "../../models/user.model";
+import Book from "../../models/book.model"; // Импортируем модель Book
 
 export const updateItemWeeks = async (
   req: express.Request,

@@ -1,6 +1,6 @@
 import express from "express";
-import BorrowedBook from "../../models/borrowedBooksModel";
-import Book from "../../models/bookModel";
+import BorrowedBook from "../../models/borrowedBooks.model";
+import Book from "../../models/book.model";
 
 export const stopRental = async (
   req: express.Request,
