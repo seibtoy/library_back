@@ -1,12 +1,20 @@
 import express from "express";
 import BorrowedBook from "../../models/borrowedBooks.model";
 import Book from "../../models/book.model";
+import { createTransaction } from "../transactionControllers/transaction.controller";
 
 export const stopRental = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { borrowedBookId, bookId } = req.body;
+  const {
+    borrowedBookId,
+    bookId,
+    userId,
+    clientPaid,
+    refundAmount,
+    depositPrice,
+  } = req.body;
 
   try {
     const borrowedBook = await BorrowedBook.findById(borrowedBookId);
@@ -48,6 +56,14 @@ export const stopRental = async (
       res.status(200).json({ message: "Order deleted successfully" });
       return;
     }
+
+    await createTransaction(
+      userId,
+      bookId,
+      clientPaid,
+      refundAmount,
+      depositPrice
+    );
 
     await borrowedBook.save();
 

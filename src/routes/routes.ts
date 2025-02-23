@@ -1,16 +1,16 @@
 import express from "express";
-import { registerUser } from "../controllers/authControllers/authController";
-import { loginUser } from "../controllers/authControllers/loginController";
-import { getBooks } from "../controllers/cartControllers/bookController";
-import { addToCart } from "../controllers/cartControllers/addToCartController";
+import { registerUser } from "../controllers/authControllers/auth.controller";
+import { loginUser } from "../controllers/authControllers/login.controller";
+import { getBooks } from "../controllers/cartControllers/book.controller";
+import { addToCart } from "../controllers/cartControllers/addToCart.controller";
 import { authenticate } from "../controllers/authControllers/authMiddleware";
-import { getCart } from "../controllers/cartControllers/getCartController";
-import { removeFromCart } from "../controllers/cartControllers/removeCartItemController";
-import { updateItemWeeks } from "../controllers/cartControllers/updateWeeksController";
-import { placeOrder } from "../controllers/borrowedControllers/orderController";
-import { getUserBorrowedBooks } from "../controllers/borrowedControllers/getBorrowedBooks";
-import { updateDiscount } from "../controllers/cartControllers/updateDiscount";
-import { stopRental } from "../controllers/borrowedControllers/stopRental";
+import { getCart } from "../controllers/cartControllers/getCart.controller";
+import { removeFromCart } from "../controllers/cartControllers/removeCartItem.controller";
+import { updateItemWeeks } from "../controllers/cartControllers/updateWeeks.controller";
+import { placeOrder } from "../controllers/borrowedControllers/order.controller";
+import { getUserBorrowedBooks } from "../controllers/borrowedControllers/getBorrowedBooks.controller";
+import { updateDiscount } from "../controllers/cartControllers/updateDiscount.controller";
+import { stopRental } from "../controllers/borrowedControllers/stopRental.controller";
 
 const router = express.Router();
 
