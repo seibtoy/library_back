@@ -11,6 +11,7 @@ import { placeOrder } from "../controllers/borrowedControllers/order.controller"
 import { getUserBorrowedBooks } from "../controllers/borrowedControllers/getBorrowedBooks.controller";
 import { updateDiscount } from "../controllers/cartControllers/updateDiscount.controller";
 import { stopRental } from "../controllers/borrowedControllers/stopRental.controller";
+import { getTransactions } from "../controllers/transactionControllers/getTransaction.controller";
 
 const router = express.Router();
 
@@ -35,5 +36,7 @@ router.get("/get-borrowed-books", authenticate, getUserBorrowedBooks);
 router.post("/update-discount", authenticate, updateDiscount);
 
 router.post("/rental-stop", authenticate, stopRental);
+
+router.get("/transactions", authenticate, getTransactions);
 
 export default router;
