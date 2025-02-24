@@ -16,6 +16,73 @@ interface Book extends Document {
   quantity: number;
 }
 
+/**
+ * @swagger
+ * components:
+ * schemas:
+ * Book:
+ * type: object
+ * properties:
+ * _id:
+ * type: string
+ * description: The unique ID of the book.
+ * title:
+ * type: string
+ * description: The title of the book.
+ * author:
+ * type: string
+ * description: The author of the book.
+ * genre:
+ * type: string
+ * description: The genre of the book.
+ * depositPrice:
+ * type: number
+ * description: The deposit price of the book.
+ * rentalPrice:
+ * type: number
+ * description: The rental price of the book.
+ * currency:
+ * type: string
+ * description: The currency used for prices (e.g., USD).
+ * default: "USD"
+ * availability:
+ * type: string
+ * enum: ["available", "reserved"]
+ * description: The availability status of the book.
+ * imageLink:
+ * type: string
+ * description: The link to the book's image.
+ * language:
+ * type: string
+ * description: The language of the book.
+ * pages:
+ * type: number
+ * description: The number of pages in the book.
+ * country:
+ * type: string
+ * description: The country of publication.
+ * year:
+ * type: number
+ * description: The year of publication.
+ * quantity:
+ * type: number
+ * description: The quantity of books available.
+ * required:
+ * - title
+ * - author
+ * - genre
+ * - depositPrice
+ * - rentalPrice
+ * - currency
+ * - availability
+ * - imageLink
+ * - language
+ * - pages
+ * - country
+ * - year
+ * - quantity
+ */
+
 const bookSchema = new Schema<Book>(
   {
     title: { type: String, required: true },
